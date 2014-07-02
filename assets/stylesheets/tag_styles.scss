@@ -7,7 +7,7 @@ h3 .tagger-tag,
     display: inline-block;
     padding: 1px 7px;
     margin-top: 5px;
-    font-size: 0.8em;
+    // font-size: 0.8em; // SP customization (remove style to prevent hint 'popup' having too small font size)
 }
 
 .tagger-tags .tagger-tag,
@@ -48,4 +48,56 @@ h3 .tagger-tag,
 .tt-dropdown-menu {
     background-color: white;
     padding: 3px 10px;
+}
+
+
+
+
+// This affects both in-topic tagging, as well as the tag field in the "Create Topic" pullup panel e.g on the /latest page
+
+// SP custom rule
+.tagger-tags-view {
+  margin-bottom: -10px;
+  margin-top: 10px;
+}
+
+// SP custom rule
+h3 .tagger-tag {
+  margin-bottom: 20px; // SP customization (/tag/XXX page - ensure vertical separation between list header and list)
+}
+
+// SP custom rule
+.tagger-tags-view span.twitter-typeahead {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+// SP custom rule
+.twitter-typeahead .tt-hint {
+  color: red;
+}
+
+// SP custom rule
+.twitter-typeahead .tt-dropdown-menu {
+  background-color: lightblue;
+  padding: 0;
+  top: 30px !important;
+
+  .tt-suggestions {
+    margin: 0;
+    padding: 0; // ugly, but ensures that there's no click-killing area around the text
+
+    .tt-suggestion p {
+      margin: 0; // ugly, but ensures that there's no click-killing area around the text
+    }
+  }
+}
+
+// SP custom rule
+.topic-page-tagging-hint-SP {
+  display: none; // don't pollute "Create Topic" pullup panel e.g on the /latest page
+
+  .topic-title & {
+    display: inline;
+  }
 }
