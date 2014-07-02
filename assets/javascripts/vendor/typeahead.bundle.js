@@ -1614,7 +1614,8 @@
             try {
                 !$input.attr("dir") && $input.attr("dir", "auto");
             } catch (e) {}
-            return $input.wrap($wrapper).parent().prepend(withHint ? $hint : null).append($dropdown);
+            return $input.wrap($wrapper).parent().prepend(withHint ? $hint : null).append($dropdown)
+              .append('<span class="topic-page-tagging-hint-SP">You need to press e.g. ENTER to first create the tag before trying to save using the "check" button</span>'); // SP customization
         }
         function getBackgroundStyles($el) {
             return {
