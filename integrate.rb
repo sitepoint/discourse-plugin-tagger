@@ -23,7 +23,18 @@ module ExtendTopicViewSerializer
 	end
 end
 
+module ExtendListableTopicSerializer
+  def self.included(klass)
+    klass.attributes :tags
+  end
+
+  def tags
+    object.tags.map { |t| t.title } || []
+  end
+end
+
 TopicViewSerializer.send(:include, ExtendTopicViewSerializer)
+ListableTopicSerializer.send(:include, ExtendListableTopicSerializer)
 
 # And mount the engine
 Discourse::Application.routes.append do
