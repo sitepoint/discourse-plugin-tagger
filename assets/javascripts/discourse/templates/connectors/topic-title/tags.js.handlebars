@@ -3,22 +3,25 @@
         <label>Tags:</label>
         {{#if new_tags}}
             {{#each new_tags}}
-                <span class="tagger-tag" >{{this}} <i {{action removeTag this }} class='fa fa-times'></i></span>
+                <span class="tagger-tag tagger-tag--added-SP" >{{this}} <i {{action removeTag this }} class='fa fa-times'></i></span>
             {{/each}}
         {{/if}}
-        {{#if model.tag_list}}
-          {{#each model.tag_list}}
-            {{this}} |
-          {{/each}}
-        {{/if}}
         {{tags-selector tags=new_tags}}
+        {{#if model.tag_list}}
+          <div id="available-tags-SP" class="available-tags-SP">
+            <label>Available tags:</label>
+            {{#each model.tag_list}}
+              <a class="tagger-tag btn" href="#">{{this}}</a>
+            {{/each}}
+          </div>
+        {{/if}}
     </div>
 {{else}}
     {{#if model.tags}}
     	<div class="tagger-tags-view">
     		<span>Tags:</span>
     	  {{#each model.tags}}
-    		<a href="/tag/{{unbound this}}" class="tagger-tag">{{this}}</a>
+    		<a href="/tag/{{unbound this}}" class="tagger-tag btn">{{this}}</a>
     	  {{/each}}
     	</div>
     {{/if}}
