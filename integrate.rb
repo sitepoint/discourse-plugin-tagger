@@ -16,11 +16,16 @@ Topic.send(:include, TopicExtender)
 module ExtendTopicViewSerializer
   def self.included(klass)
     klass.attributes :tags
+    klass.attributes :tag_list
   end
 
 	def tags
 		object.topic.tags.map {|t| t.title} || []
 	end
+
+  def tag_list
+    Tagger::Tag.pluck(:title).sort || []
+  end
 end
 
 module ExtendListableTopicSerializer
