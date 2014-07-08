@@ -6,6 +6,11 @@
                 <span class="tagger-tag" >{{this}} <i {{action removeTag this }} class='fa fa-times'></i></span>
             {{/each}}
         {{/if}}
+        {{#if model.tag_list}}
+          {{#each model.tag_list}}
+            {{this}} |
+          {{/each}}
+        {{/if}}
         {{tags-selector tags=new_tags}}
     </div>
 {{else}}
