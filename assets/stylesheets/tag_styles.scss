@@ -12,9 +12,9 @@ h3 .tagger-tag,
 
 .tagger-tags .tagger-tag,
 .tagger-admin .tagger-tag,
-h3 .tagger-tag,
-.tagger-tags-view a.tagger-tag,
-.tagger-tags-view span.tagger-tag {
+h3 .tagger-tag {
+// .tagger-tags-view a.tagger-tag, // SP customization (now that we added .btn class to tags, we also use the default .btn :hover styles)
+// .tagger-tags-view span.tagger-tag { // SP customization (topic page tag edit mode - now that we added .btn class to tags, we also use the default .btn :hover styles)
     background-color: #EDEDED;
     color: #333;
 }
@@ -55,10 +55,34 @@ h3 .tagger-tag,
 
 // This affects both in-topic tagging, as well as the tag field in the "Create Topic" pullup panel e.g on the /latest page
 
-// SP custom rule
-.tagger-tags-view {
+// SP custom rule (topic page)
+#topic-title .tagger-tags-view {
   margin-bottom: -10px;
   margin-top: 10px;
+
+  span {
+    color: #999;
+    font-size: 12px;
+
+    &.tagger-tag--added-SP {
+      border: 1px solid;
+      border-radius: 3px;
+
+      i {
+        &:hover {
+          color: #000;
+        }
+      }
+    }
+  }
+}
+
+// SP custom rule (/tag/XXX page)
+#topic-list .main-link .tagger-tags-view {
+  span {
+    font-size: 12px;
+    padding-left: 0;
+  }
 }
 
 // SP custom rule
@@ -94,10 +118,19 @@ h3 .tagger-tag {
 }
 
 // SP custom rule
-.topic-page-tagging-hint-SP {
-  display: none; // don't pollute "Create Topic" pullup panel e.g on the /latest page
+.available-tags-SP {
+  .tagger-tag {
+    margin-top: 10px; // ensure separation from "Tags:" when no typeahead container above in the future + separation if available tags are span multiple lines
+  }
+}
 
-  .topic-title & {
-    display: inline;
+// SP custom rule (for /tag/XXX page)
+.list-controls {
+  h3 {
+    .tagger-tag {
+      &.btn {
+        float: none;
+      }
+    }
   }
 }
