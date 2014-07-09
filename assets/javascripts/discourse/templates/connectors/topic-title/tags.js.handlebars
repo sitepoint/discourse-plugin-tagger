@@ -6,7 +6,9 @@
                 <span class="tagger-tag tagger-tag--added-SP" >{{this}} <i {{action removeTag this }} class='fa fa-times'></i></span>
             {{/each}}
         {{/if}}
-        {{tags-selector tags=new_tags}}
+        {{#if currentUser.staff}}
+          {{tags-selector tags=new_tags}}
+        {{/if}}
         {{#if model.tag_list}}
           <div id="available-tags-SP" class="available-tags-SP">
             <label>Available tags:</label>
