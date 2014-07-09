@@ -118,7 +118,7 @@ h3 .tagger-tag {
 }
 
 // SP custom rule
-.available-tags-SP {
+.available-tags-SP, .tagger-tags-view {
   .tagger-tag {
     margin-top: 10px; // ensure separation from "Tags:" when no typeahead container above in the future + separation if available tags are span multiple lines
   }
