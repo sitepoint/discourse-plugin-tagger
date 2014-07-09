@@ -3,7 +3,7 @@
         <label>Tags:</label>
         {{#if new_tags}}
             {{#each new_tags}}
-                <span class="tagger-tag tagger-tag--added-SP" >{{this}} <i {{action removeTag this }} class='fa fa-times'></i></span>
+              <button class="btn btn-danger" {{action removeTag this }} title="Remove {{this}} tag"><i class='fa fa-times'></i> {{this}}</button>
             {{/each}}
         {{/if}}
         {{#if currentUser.staff}}
@@ -13,7 +13,7 @@
           <div id="available-tags-SP" class="available-tags-SP">
             <label>Available tags:</label>
             {{#each model.tag_list}}
-              <a class="tagger-tag btn" href="#">{{this}}</a>
+              <button class="btn" {{action addTag this }} title="Add {{this}} tag"><i class="fa fa-plus"></i> {{this}}</button>
             {{/each}}
           </div>
         {{/if}}

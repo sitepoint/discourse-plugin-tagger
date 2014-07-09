@@ -30,6 +30,9 @@ Discourse.TopicController.reopen({
   actions: {
     removeTag: function(toRm){
       this.get("new_tags").removeObject(toRm.toString());
+    },
+    addTag: function(toAdd) {
+      this.get("new_tags").addObject(toAdd.toString());
     }
   },
 
