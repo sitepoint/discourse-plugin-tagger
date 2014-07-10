@@ -4,6 +4,5 @@
     {{#each model.tags}}
       <span class="tagger-tag" >{{this}} <i {{action removeTag this}} class='fa fa-times'></i></span>
     {{/each}}
-    {{tags-selector tags=model.tags}}
   </div>
 {{/if}}
