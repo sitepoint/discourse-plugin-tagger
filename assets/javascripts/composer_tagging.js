@@ -8,7 +8,7 @@ Discourse.Composer.reopen({
 
   createPost: function(opts) {
     var tags = (this.get("tags") || []).join(",");
-      var dfr = this._super(opts);
+    var dfr = this._super(opts);
     dfr.then(function(post_result){
       var tagger = Discourse.ajax('/tagger/set_tags', {
         data: {
