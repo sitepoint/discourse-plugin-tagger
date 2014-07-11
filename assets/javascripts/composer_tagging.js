@@ -55,6 +55,9 @@ require("discourse/controllers/composer")["default"].reopen({
   actions: {
     removeTag: function(toRm){
       this.get("content.tags").removeObject(toRm.toString());
+    },
+    addTag: function(toAdd) {
+      this.get("content.tags").addObject(toAdd.toString());
     }
   }
 });

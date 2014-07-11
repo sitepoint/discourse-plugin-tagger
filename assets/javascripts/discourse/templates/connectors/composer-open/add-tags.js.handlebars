@@ -2,7 +2,15 @@
   <div class="tagger-tags span10">
     <label>Tags:</label>
     {{#each model.tags}}
-      <span class="tagger-tag" >{{this}} <i {{action removeTag this}} class='fa fa-times'></i></span>
+      <button class="btn btn-danger tagger-tag" {{action removeTag this }} title="Remove {{this}} tag"><i class='fa fa-times'></i> {{this}}</button>
     {{/each}}
+    {{#if model.tag_list}}
+      <div id="available-tags-SP" class="available-tags-SP">
+        <label>Available tags:</label>
+        {{#each model.tag_list}}
+          <button class="btn tagger-tag" {{action addTag this }} title="Add {{this}} tag"><i class="fa fa-plus"></i> {{this}}</button>
+        {{/each}}
+      </div>
+    {{/if}}
   </div>
 {{/if}}
