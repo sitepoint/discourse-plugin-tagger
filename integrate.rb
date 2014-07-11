@@ -38,6 +38,17 @@ module ExtendListableTopicSerializer
   end
 end
 
+module ExtendSiteSerializer
+  def self.included(klass)
+    klass.attributes :tag_list
+  end
+
+  def tag_list
+    Tagger::Tag.pluck(:title).sort || []
+  end
+end
+
+SiteSerializer.send(:include, ExtendSiteSerializer)
 TopicViewSerializer.send(:include, ExtendTopicViewSerializer)
 ListableTopicSerializer.send(:include, ExtendListableTopicSerializer)
 
