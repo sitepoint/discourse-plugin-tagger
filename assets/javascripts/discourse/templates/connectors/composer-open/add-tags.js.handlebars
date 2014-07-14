@@ -1,5 +1,5 @@
 {{#if model.can_be_tagged}}
-  <div class="tagger-tags span10">
+  <div class="tagger-tags">
     <label>Tags:</label>
     {{#each model.tags}}
       <button class="btn btn-danger tagger-tag" {{action removeTag this }} title="Remove {{this}} tag"><i class='fa fa-times'></i> {{this}}</button>
