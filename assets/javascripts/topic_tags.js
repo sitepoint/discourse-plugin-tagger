@@ -78,7 +78,8 @@ Discourse.TaggedTagRoute = Discourse.Route.extend({
   },
   renderTemplate: function() {
     var controller = this.controllerFor('discovery/topics');
-    this.render('tag_topic_list_head', { controller: controller, outlet: 'navigation-bar' });
+    this.render('tag_topic_list_head', { controller: controller, outlet: 'header-list-container' });
+    this.render('navigation/categories', { controller: this.controllerFor('navigation/categories').set('filterMode', 'categories'), outlet: 'navigation-bar' });
     this.render('discovery/topics', { controller: controller, outlet: 'list-container'});
   }
 });
@@ -88,7 +89,8 @@ Discourse.TaggedCloudRoute = Discourse.Route.extend({
     return Discourse.ajax("/tagger/tags/cloud");
   },
   renderTemplate: function() {
-    //this.render('tag_topic_list_head', { controller: controller, outlet: 'navigation-bar' });
+    var controller = this.controllerFor('navigation/categories').set('filterMode', 'tag');
+    this.render('navigation/categories', { controller: controller, outlet: 'navigation-bar' });
     this.render('tag_cloud', { outlet: 'list-container'});
   }
 });
