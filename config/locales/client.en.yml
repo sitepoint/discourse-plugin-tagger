@@ -3,3 +3,7 @@ en:
     topics:
       bottom:
         tagger: ""
+    filters:
+      tag:
+        title: "Tags"
+        help: "tags used"

@@ -27,4 +27,27 @@ register_asset "stylesheets/tag_styles_mobile.scss", :mobile
 
 after_initialize do
   require_dependency File.expand_path('../integrate.rb', __FILE__)
+
+  Discourse.module_eval do
+    def self.filters
+      @filters ||= [:latest, :unread, :new, :starred, :read, :posted, :tag]
+    end
+
+    def self.anonymous_filters
+      @anonymous_filters ||= [:latest, :tag]
+    end
+  end
+
+  TopicQuery.class_eval do
+    def list_tag
+      TopicList.new(:tag, @user, topics_query)
+    end
+
+    private
+    def topics_query(options={})
+      Topic.where("deleted_at" => nil)
+        .where("visible")
+        .where("archetype <> ?", Archetype.private_message)
+    end
+  end
 end

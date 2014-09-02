@@ -79,7 +79,7 @@ Discourse.TaggedTagRoute = Discourse.Route.extend({
   renderTemplate: function() {
     var controller = this.controllerFor('discovery/topics');
     this.render('tag_topic_list_head', { controller: controller, outlet: 'header-list-container' });
-    this.render('navigation/categories', { controller: this.controllerFor('navigation/categories').set('filterMode', 'categories'), outlet: 'navigation-bar' });
+    this.render('navigation/categories', { controller: this.controllerFor('navigation/categories').set('filterMode', 'tag'), outlet: 'navigation-bar' });
     this.render('discovery/topics', { controller: controller, outlet: 'list-container'});
   }
 });
