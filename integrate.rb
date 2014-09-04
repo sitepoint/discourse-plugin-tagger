@@ -4,9 +4,9 @@
 
 # add our tags to the topics
 module TopicExtender
-	def self.included(klass)
-		klass.has_and_belongs_to_many :tags, autosave: true, class_name: "::Tagger::Tag"
-	end
+  def self.included(klass)
+    klass.has_and_belongs_to_many :tags, autosave: true, class_name: "::Tagger::Tag"
+  end
 end
 
 Topic.send(:include, TopicExtender)
@@ -19,9 +19,9 @@ module ExtendTopicViewSerializer
     klass.attributes :tag_list
   end
 
-	def tags
-		object.topic.tags.map {|t| t.title} || []
-	end
+  def tags
+    object.topic.tags.map {|t| t.title} || []
+  end
 
   def tag_list
     Tagger::Tag.pluck(:title).sort || []
@@ -54,5 +54,5 @@ ListableTopicSerializer.send(:include, ExtendListableTopicSerializer)
 
 # And mount the engine
 Discourse::Application.routes.append do
-	mount Tagger::Engine, at: '/tagger'
+  mount Tagger::Engine, at: '/tagger'
 end

@@ -1,6 +1,6 @@
 module Tagger
   class Tag < ActiveRecord::Base
-  	has_and_belongs_to_many :topic, :class_name => "Topic"
+    has_and_belongs_to_many :topic, :class_name => "Topic"
 
     def self.cloud_for_topic(topic_id)
       tags = $redis.get("tag_cloud_for_topic_#{topic_id}")

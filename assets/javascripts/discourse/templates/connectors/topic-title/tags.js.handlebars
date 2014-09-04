@@ -17,11 +17,11 @@
     </div>
 {{else}}
     {{#if model.tags}}
-    	<div class="tagger-tags-view">
-    		<span>Tags:</span>
-    	  {{#each model.tags}}
-    		<a href="/tag/{{unbound this}}" class="tagger-tag btn">{{this}}</a>
-    	  {{/each}}
-    	</div>
+      <div class="tagger-tags-view">
+        <span>Tags:</span>
+        {{#each model.tags}}
+        <a href="/tag/{{unbound this}}" class="tagger-tag btn">{{this}}</a>
+        {{/each}}
+      </div>
     {{/if}}
 {{/if}}
