@@ -1,6 +1,8 @@
 en:
   js:
     topics:
+      none:
+        tagger: ""
       bottom:
         tagger: ""
     filters:
