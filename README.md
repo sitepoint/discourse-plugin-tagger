@@ -21,6 +21,12 @@ Just two easy steps. From your main discourse do:
     rake db:migrate SCOPE=tagger                # run migrations
     rake assets:precompile                      # precompile assets
 
+## Importing Tags
+This is for VBulletin imported tags, which live as PostCustomFields
+
+    bundle exec ./plugins/discourse-plugin-tagger/lib/scripts/import.rb
+
+
 ## Changelog:
 
  * 2014-06-04
