@@ -1,5 +1,11 @@
 en:
   js:
     topics:
+      none:
+        tagger: ""
       bottom:
         tagger: ""
+    filters:
+      tag:
+        title: "Tags"
+        help: "tags used"
