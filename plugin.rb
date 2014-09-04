@@ -45,9 +45,7 @@ after_initialize do
 
     private
     def topics_query(options={})
-      Topic.where("deleted_at" => nil)
-        .where("visible")
-        .where("archetype <> ?", Archetype.private_message)
+      suggested_ordering(default_results(options), options)
     end
   end
 end
