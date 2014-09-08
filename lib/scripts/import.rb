@@ -1,9 +1,7 @@
-#!/usr/bin/env ruby
-
-require_relative "../../../../config/environment"
-
 PostCustomField.where(name: :tag).each do |custom_field|
+  next if custom_field.post.nil?
   @topic = Topic.find(custom_field.post.topic_id)
+
 
   next if @topic.tags.map(&:title).include?(custom_field.value)
 
