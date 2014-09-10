@@ -43,6 +43,14 @@ after_initialize do
       TopicList.new(:tag, @user, topics_query)
     end
 
+    alias_method :core_default_results, :default_results
+    def default_results(options={})
+      result = core_default_results(options)
+
+      result = result.includes(:tags)
+      result
+    end
+
     private
     def topics_query(options={})
       suggested_ordering(default_results(options), options)
