@@ -48,6 +48,20 @@ module ExtendSiteSerializer
   end
 end
 
+module TopicQueryExtender
+  def self.extended(klass)
+    klass.send(:alias_method, :core_default_results, :default_results)
+
+    klass.send(:define_method, :default_results) do |options|
+      result = core_default_results(options)
+      result = result.includes(:tags)
+
+      result
+    end
+  end
+end
+
+TopicQuery.send(:extend, TopicQueryExtender)
 SiteSerializer.send(:include, ExtendSiteSerializer)
 TopicViewSerializer.send(:include, ExtendTopicViewSerializer)
 ListableTopicSerializer.send(:include, ExtendListableTopicSerializer)
