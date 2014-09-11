@@ -23,6 +23,7 @@ module Tagger
       query = Tagger::Tag.select("tagger_tags.title, COUNT(tagger_tags_topics.topic_id) as count")
                     .group("tagger_tags.id")
                     .joins(:topic)
+                    .where(topics: {category_id: category_list})
       render_cloud query
     end
 
@@ -32,6 +33,7 @@ module Tagger
       query = Tagger::Tag.select("tagger_tags.title, COUNT(tagger_tags_topics.topic_id) as count")
               .group("tagger_tags.id")
               .joins(:topic)
+              .where(topics: {category_id: category_list})
               .where("tagger_tags_topics.topic_id IN (SELECT topics.id FROM topics INNER JOIN categories ON topics.category_id = categories.id WHERE categories.slug = ?) ", params[:slug])
       render_cloud query
     end
@@ -64,6 +66,7 @@ module Tagger
               .where("tagger_tags.title != ?", params[:tag])
               .group("tagger_tags.id").
               joins(:topic)
+              .where(topics: {category_id: category_list})
               .where("tagger_tags_topics.topic_id IN (SELECT tagger_tags_topics.topic_id FROM tagger_tags_topics INNER JOIN tagger_tags ON tagger_tags_topics.tag_id = tagger_tags.id WHERE tagger_tags.title = ?) ", params[:tag])
       render_cloud query
     end
@@ -129,10 +132,16 @@ module Tagger
       end
 
       def topics_query(options={})
-       Topic.where("deleted_at" => nil)
-                    .where("visible")
-                    .where("archetype <> ?", Archetype.private_message)
-                    .where("id in (SELECT topic_id FROM tagger_tags_topics WHERE tag_id = ?)", @tag.id)
+        Topic.
+          where(category_id: category_list).
+          where(deleted_at: nil).
+          where(visible: true).
+          where("archetype <> ?", Archetype.private_message).
+          where("id in (SELECT topic_id FROM tagger_tags_topics WHERE tag_id = ?)", @tag.id)
+      end
+
+      def category_list
+        @_category_list ||= Category.secured(Guardian.new(current_user)).pluck(:id)
       end
   end
 end
