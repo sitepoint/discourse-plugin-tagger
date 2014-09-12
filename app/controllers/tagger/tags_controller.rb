@@ -89,7 +89,7 @@ module Tagger
 
       tag_names = params[:tags].split(",")
       tags = Tag.all().where("title in (:tag_names)", tag_names: tag_names)
-      if tags.length != tag_names and current_user.has_trust_level?(:leader)
+      if tags.length != tag_names and current_user.staff?
         # more tags given than currently found
         # and the user is trusted to create tags
         existing_tags = tags.map {|tag| tag.title}
