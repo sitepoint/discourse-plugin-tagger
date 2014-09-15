@@ -7,9 +7,10 @@
 load File.expand_path('../lib/tagger/engine.rb', __FILE__)
 
 register_asset "javascripts/user_tag_patches.js"
+register_asset "javascripts/discourse/templates/components/bread-crumbs.js.handlebars"
+register_asset "javascripts/discourse/templates/components/tag-drop.js.handlebars"
 register_asset "javascripts/discourse/templates/connectors/composer-open/add-tags.js.handlebars"
 register_asset "javascripts/discourse/templates/connectors/topic-title/tags.js.handlebars"
-register_asset "javascripts/discourse/templates/tag_topic_list_head.js.handlebars"
 register_asset "javascripts/discourse/templates/sidebar_tag_cloud.js.handlebars"
 register_asset "javascripts/discourse/templates/sidebar_tag_info.js.handlebars"
 register_asset "javascripts/discourse/templates/tag_cloud.js.handlebars"

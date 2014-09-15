@@ -10,6 +10,10 @@ h3 .tagger-tag,
     // font-size: 0.8em; // SP customization (remove style to prevent hint 'popup' having too small font size)
 }
 
+.tagger-tag {
+  margin-bottom: 5px;
+}
+
 .tagger-admin .tagger-tag,
 h3 .tagger-tag {
 // .tagger-tags-view a.tagger-tag, // SP customization (now that we added .btn class to tags, we also use the default .btn :hover styles)

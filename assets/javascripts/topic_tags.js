@@ -63,6 +63,26 @@ Discourse.TopicController.reopen({
   }.observes('topicSaving')
 });
 
+Discourse.BreadCrumbsComponent.reopen({
+  init: function() {
+    this._super();
+
+    var self = this;
+    Discourse.ajax('/tagger/tags').then(function(tags) {
+      self.set('tags', tags);
+    });
+  }
+});
+
+Discourse.DiscoveryCategoriesRoute.reopen({
+  beforeModel: function() {
+    this.controllerFor('navigation/categories').setProperties({
+      'filterMode': 'categories',
+      'tag': null,
+    });
+  }
+});
+
 // topics of tags views
 
 Discourse.TaggedTagRoute = Discourse.Route.extend({
@@ -78,8 +98,10 @@ Discourse.TaggedTagRoute = Discourse.Route.extend({
   },
   renderTemplate: function() {
     var controller = this.controllerFor('discovery/topics');
-    this.render('tag_topic_list_head', { controller: controller, outlet: 'header-list-container' });
-    this.render('navigation/categories', { controller: this.controllerFor('navigation/categories').set('filterMode', 'tag'), outlet: 'navigation-bar' });
+    this.render('navigation/categories', { controller: this.controllerFor('navigation/categories').setProperties({
+      'filterMode': 'tag',
+      'tag': this.get('tag')
+    }), outlet: 'navigation-bar' });
     this.render('discovery/topics', { controller: controller, outlet: 'list-container'});
   }
 });
