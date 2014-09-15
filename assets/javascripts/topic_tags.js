@@ -63,6 +63,17 @@ Discourse.TopicController.reopen({
   }.observes('topicSaving')
 });
 
+Discourse.BreadCrumbsComponent.reopen({
+  init: function() {
+    this._super();
+
+    var _this = this;
+    Discourse.ajax('/tagger/tags').then(function(tags) {
+      _this.set('tags', tags);
+    });
+  }
+});
+
 // topics of tags views
 
 Discourse.TaggedTagRoute = Discourse.Route.extend({
@@ -78,8 +89,37 @@ Discourse.TaggedTagRoute = Discourse.Route.extend({
   },
   renderTemplate: function() {
     var controller = this.controllerFor('discovery/topics');
-    this.render('tag_topic_list_head', { controller: controller, outlet: 'header-list-container' });
-    this.render('navigation/categories', { controller: this.controllerFor('navigation/categories').set('filterMode', 'tag'), outlet: 'navigation-bar' });
+    this.render('navigation/categories', { controller: this.controllerFor('navigation/categories').setProperties({
+      'filterMode': 'tag',
+      'tag': this.get('tag')
+    }), outlet: 'navigation-bar' });
+    this.render('discovery/topics', { controller: controller, outlet: 'list-container'});
+  }
+});
+
+Discourse.TaggedCategoryRoute = Discourse.Route.extend({
+  model: function(params){
+    this.set('tag', params.tag);
+    this.set('slug', params.slug);
+    return Discourse.TopicList.find('tagger/tag/' + params.tag + '/category/' + params.slug, {});
+  },
+  setupController: function(controller, model) {
+    this.controllerFor('discovery/topics').setProperties({
+       'model': model,
+       'tagname': this.get('tag')
+     });
+  },
+  renderTemplate: function() {
+    var controller = this.controllerFor('discovery/topics');
+    var navigationController = this.controllerFor('navigation/categories');
+
+    navigationController.setProperties({
+      'filterMode': 'tag',
+      'tag': this.get('tag'),
+      'category': Discourse.Category.findBySlug(this.get('slug'))
+    });
+
+    this.render('navigation/categories', { controller: navigationController, outlet: 'navigation-bar' });
     this.render('discovery/topics', { controller: controller, outlet: 'list-container'});
   }
 });
@@ -101,6 +141,7 @@ Discourse.TaggedView = Discourse.View.extend({
 
 Discourse.Route.buildRoutes(function() {
   this.resource('tagged', {path: "tag"}, function() {
+    this.route('category', { path: '/:tag/category/:slug' });
     this.route('tag', { path: '/:tag' });
     this.route('cloud', { path: '/' });
   });

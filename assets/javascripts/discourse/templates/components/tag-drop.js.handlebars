@@ -1,0 +1,24 @@
+{{#if tag}}
+  <a href="#" {{action expand}} class="badge-category restricted" style="background: #f7f7f7; color: #6d6d6d; font-weight: bold">
+    {{tag}}
+  </a>
+{{else}}
+  <a href="#" {{action expand}} class="badge-category home" style="background: #f7f7f7; color: #6d6d6d">
+    all tags
+  </a>
+{{/if}}
+
+<a href="#" {{action expand}} class="badge-category category-dropdown-button home" style="background: #f7f7f7; color: #6d6d6d"><i class="fa fa-caret-down"></i></a>
+<section {{bind-attr class="expanded::hidden :category-dropdown-menu"}} class='chooser'>
+  <div class="cat">
+    <a href="/tag" data-drop-close="true" class="badge-category home">
+      all tags
+    </a>
+  </div>
+
+  {{#each tags}}
+    <div class="cat">
+      {{tag-link this}}
+    </div>
+  {{/each}}
+</section>

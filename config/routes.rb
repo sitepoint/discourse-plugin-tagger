@@ -6,6 +6,7 @@ Tagger::Engine.routes.draw do
       end
     end
   get "/tags" => "tags#index"
+  get "/tag/:tag/category/:slug" => "tags#get_topics_per_tag_for_category"
   get "/tag/:tag" => "tags#get_topics_per_tag"
   get "/tags/cloud" => "tags#cloud"
   get "/tags/cloud/topic/:topic_id" => "tags#cloud_for_topic"
@@ -18,6 +19,7 @@ end
 
 Rails.application.routes.draw do
   scope module: 'tagger' do
+    get "/tag/:tag/category/:slug" => "tags#get_topics_per_tag_for_category"
     get "/tag/:tag" => "tags#get_topics_per_tag"
     get "/tag/" => "tags#cloud"
   end

@@ -77,6 +77,17 @@ module Tagger
       render_serialized(list, TopicListSerializer)
     end
 
+    def get_topics_per_tag_for_category
+      params.require(:tag)
+      @tag = Tag.find_by("title = ?", params[:tag])
+      return render json: false if @tag.blank?
+
+      params.require(:slug)
+      discourse_expires_in 15.minutes
+      list = TopicList.new(:tag, current_user, topics_within_category_query(params[:slug]))
+      render_serialized(list, TopicListSerializer)
+    end
+
     def set_tags
       @topic = Topic.find(params[:topic_id])
       if current_user.guardian.ensure_can_edit!(@topic)
@@ -133,6 +144,16 @@ module Tagger
                     .where("visible")
                     .where("archetype <> ?", Archetype.private_message)
                     .where("id in (SELECT topic_id FROM tagger_tags_topics WHERE tag_id = ?)", @tag.id)
+      end
+
+      def topics_within_category_query category_slug
+        topics_query.where("""
+          id IN (
+            SELECT topics.id
+              FROM topics
+        INNER JOIN categories ON topics.category_id = categories.id
+             WHERE categories.slug = ?)
+          """, category_slug)
       end
   end
 end
