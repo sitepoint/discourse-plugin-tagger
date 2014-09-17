@@ -76,7 +76,7 @@ module Tagger
       @tag = Tag.find_by("title = ?", params[:tag])
       return render json: false if @tag.blank?
 
-      list = TopicList.new(:tag, current_user, topics_query)
+      list = TopicList.new(:tag, current_user, topics_query.recent(25))
       render_serialized(list, TopicListSerializer)
     end
 
