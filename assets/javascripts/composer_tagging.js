@@ -1,8 +1,16 @@
 Discourse.Composer.reopen({
 
+  init: function() {
+    this._super();
+
+    var self = this;
+    Discourse.ajax('/tagger/tags').then(function(tags) {
+      self.set('tag_list', tags);
+    });
+  },
+
   // only creation of new topic and editing of first post are valid for us
   can_be_tagged: function(){
-    this.set('tag_list', PreloadStore.get('site').tag_list)
     return this.get("creatingTopic") || (this.get("editingPost") && this.get("editingFirstPost"));
   }.property("creatingTopic", "editingPost", "editingFirstPost"),
 

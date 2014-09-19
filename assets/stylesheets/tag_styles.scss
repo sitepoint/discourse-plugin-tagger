@@ -45,9 +45,12 @@ h3 .tagger-tag {
 }
 
 .discourse-no-touch #reply-control.edit-title .contents .wmd-controls {
-  top:200px;
+  top:250px;
 }
 
+#reply-control.edit-title.open {
+  height: 450px;
+}
 
 
 
