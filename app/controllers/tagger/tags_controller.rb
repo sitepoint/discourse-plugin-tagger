@@ -6,10 +6,15 @@ module Tagger
 
     # GET /tags
     def index
-      @tags = Tag.all
+      if current_user && current_user.staff?
+        @tags = Tag.all
+      else
+        @tags = Tag.group("tagger_tags.id").joins(:topic).where(topics: {category_id: category_list})
+      end
+
       if params[:search]
         search = "%#{params[:search]}%"
-        @tags = @tags.where("title LIKE :search", search: search)
+        @tags = @tags.where("tagger_tags.title LIKE :search", search: search)
       end
       if params[:limit]
         @tags = @tags.limit(params[:limit].to_i)
