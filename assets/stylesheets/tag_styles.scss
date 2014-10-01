@@ -10,6 +10,12 @@ h3 .tagger-tag,
     // font-size: 0.8em; // SP customization (remove style to prevent hint 'popup' having too small font size)
 }
 
+.tagger-tags {
+  max-height: 200px;
+  overflow: scroll;
+  position: absolute;
+}
+
 .tagger-tag {
   margin-bottom: 5px;
 }
@@ -45,11 +51,11 @@ h3 .tagger-tag {
 }
 
 .discourse-no-touch #reply-control.edit-title .contents .wmd-controls {
-  top:250px;
+  top: 314px;
 }
 
 #reply-control.edit-title.open {
-  height: 450px;
+  height: 520px;
 }
 
 
