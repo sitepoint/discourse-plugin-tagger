@@ -64,8 +64,8 @@ h3 .tagger-tag {
 
 // SP custom rule (topic page)
 #topic-title .tagger-tags-view {
-  margin-bottom: -10px;
-  margin-top: 10px;
+  clear: both;
+  margin: 10px auto -5px 19px;
 
   span {
     color: #999;
