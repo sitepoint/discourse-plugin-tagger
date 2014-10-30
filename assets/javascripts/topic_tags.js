@@ -52,6 +52,7 @@ Discourse.TopicController.reopen({
     var topic = this.get("model"),
         tags = this.get("new_tags"); // we do total inline edit here
     Discourse.ajax('/tagger/set_tags', {
+                        type: 'POST',
                         data: {
                           tags: tags.join(","),
                           topic_id: topic.get("id")
