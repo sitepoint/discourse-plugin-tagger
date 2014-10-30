@@ -2,8 +2,6 @@ module Tagger
   class TagsController < ApplicationController
     include CurrentUser
 
-    before_action :check_user, only: [:set_tags]
-
     # GET /tags
     def index
       if current_user && current_user.staff?
@@ -87,7 +85,7 @@ module Tagger
 
     def set_tags
       @topic = Topic.find(params[:topic_id])
-      if current_user.guardian.ensure_can_edit!(@topic)
+      if !is_api? && current_user.guardian.ensure_can_edit!(@topic)
         render status: :forbidden, json: false
         return
       end
