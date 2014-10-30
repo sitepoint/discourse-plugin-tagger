@@ -19,6 +19,7 @@ Discourse.Composer.reopen({
     var dfr = this._super(opts);
     dfr.then(function(post_result){
       var tagger = Discourse.ajax('/tagger/set_tags', {
+        type: 'POST',
         data: {
           tags: tags,
           topic_id: post_result.post.topic_id
@@ -46,6 +47,7 @@ Discourse.Composer.reopen({
     if (post.get('post_number') === 1){
       // we are topic post: update tags, too
       var after_tags = Discourse.ajax('/tagger/set_tags', {
+        type: 'POST',
         data: {
           tags: tags,
           topic_id: post.get("topic_id")
